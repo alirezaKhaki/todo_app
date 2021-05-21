@@ -1,41 +1,58 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
-import { CreatTaskDto } from './dto/create-task.dto';
-import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
-import { TaskStatus } from './task-status.enum';
-import { Task } from './task.entity';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { TasksService } from './tasks.service';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { Task } from './task.entity';
+import { TaskStatus } from './task-status.enum';
+import { User } from '../auth/user.entity';
+import { GetUser } from 'src/auth/get-user.decorator';
 
 @Controller('tasks')
+@UseGuards(AuthGuard())
 export class TasksController {
-    constructor(private taskService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
-    @Get()
-    getAllTasks(): Promise<Task[]> {
-        return this.taskService.getAllTasks();
-    }
-    @Get('/:id')
-    getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-        return this.taskService.getTaskById(id);
-    }
-    @Post()
-    @UsePipes(ValidationPipe)
-    creatTask(
-        @Body() creatTaskDto: CreatTaskDto
-    ): Promise<Task> {
-        return this.taskService.creatTask(creatTaskDto);
-    }
+  @Get()
+  getTasks(
+    @Query(ValidationPipe) filterDto: GetTasksFilterDto,
+    @GetUser() user: User,
+  ): Promise<Task[]> {
+    return this.tasksService.getTasks(filterDto, user);
+  }
 
-    @Put('/:id/status')
-    updateTaskStatus(
-        @Param('id', ParseIntPipe) id: number,
-        @Body('status', TaskStatusValidationPipe) status: TaskStatus,
-    ): Promise<Task> {
-        return this.taskService.updateTaskStatus(id, status)
-    }
+  @Get('/:id')
+  getTaskById(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.getTaskById(id, user);
+  }
 
+  @Post()
+  @UsePipes(ValidationPipe)
+  createTask(
+    @Body() createTaskDto: CreateTaskDto,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.createTask(createTaskDto, user);
+  }
 
-    @Delete('/:id')
-    deleteTaskById(@Param('id', ParseIntPipe) id: number) {
-        return this.taskService.deleteTaskById(id)
-    }
+  @Delete('/:id')
+  deleteTask(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.tasksService.deleteTask(id, user);
+  }
+
+  @Patch('/:id/status')
+  updateTaskStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.updateTaskStatus(id, status, user);
+  }
 }
