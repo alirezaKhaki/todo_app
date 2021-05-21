@@ -13,7 +13,7 @@ constructor(
         return this.authService.signUp(authDto)
     }
     @Post('/signIn')
-    signIn(@Body(ValidationPipe) authDto:AuthDto): Promise<any>{
+    signIn(@Body(ValidationPipe) authDto:AuthDto): Promise<{token:string}>{
         return this.authService.singIn(authDto)
     }
 }
