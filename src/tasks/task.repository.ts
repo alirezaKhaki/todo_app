@@ -7,13 +7,10 @@ import { Task } from "./task.entity";
 export class TaskRepository extends Repository<Task>{
     async createTask(creatTaskDto: CreatTaskDto): Promise<Task> {
         const { title, description } = creatTaskDto
-
         const task = new Task();
-
         task.title = title;
         task.descrepition = description;
         task.status = TaskStatus.TODO
-
         await task.save();
         return task;
     }
