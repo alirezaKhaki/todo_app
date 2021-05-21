@@ -12,4 +12,8 @@ constructor(
     signUp(@Body(ValidationPipe) authDto:AuthDto): Promise<void>{
         return this.authService.signUp(authDto)
     }
+    @Post('/signIn')
+    signIn(@Body(ValidationPipe) authDto:AuthDto): Promise<any>{
+        return this.authService.singIn(authDto)
+    }
 }

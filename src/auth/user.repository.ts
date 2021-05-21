@@ -6,6 +6,7 @@ import { User } from "./user.entity";
 import * as bcrypt from "bcrypt"
 @EntityRepository(User)
 export class UserRepository extends Repository<User>{
+    
     async signUp(authDto: AuthDto): Promise<any> {
         const { username, password } = authDto;
 
@@ -29,5 +30,12 @@ export class UserRepository extends Repository<User>{
     private async hashPass(password: string, salt: string): Promise<string> {
         return bcrypt.hash(password, salt)
     }
+    async singIn(authDto:AuthDto): Promise<any>{
+        const {username , password} = authDto;
+        const user = await this.findOne({username});
 
+        if(user && await user.validatePass(password)){
+            return user.username;
+        }
+    }
 }
