@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 
@@ -9,7 +9,7 @@ constructor(
 ){}
 
     @Post('/signUp')
-    signUp(@Body() authDto:AuthDto): Promise<void>{
+    signUp(@Body(ValidationPipe) authDto:AuthDto): Promise<void>{
         return this.authService.signUp(authDto)
     }
 }
