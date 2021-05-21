@@ -11,9 +11,9 @@ export class TasksService {
         @InjectRepository(TaskRepository)
         private taskRepository: TaskRepository
     ) { }
-    // getAllTasks(): Task[] {
-    //     return this.tasks;
-    // }
+    async getAllTasks(): Promise<Task[]> {
+        return this.taskRepository.find();
+    }
     async getTaskById(id: number): Promise<Task> {
         const found = await this.taskRepository.findOne(id);
         if (!found) throw new NotFoundException
