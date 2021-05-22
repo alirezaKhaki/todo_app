@@ -12,7 +12,7 @@ services:
             NODE_ENV: development
         ports:
             - "5000:5000"
-        postgresql:
+    postgresql:
         image: postgres:10.4
         ports:
             - "35000:5432"
