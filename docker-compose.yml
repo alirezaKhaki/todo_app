@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
             context: .
         depends_on: 
-            - postgres
+            - postgresql
         environment: 
             NODE_ENV: development
         ports:
