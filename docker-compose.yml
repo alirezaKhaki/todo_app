@@ -9,9 +9,9 @@ services:
         depends_on: 
             - postgres
         environment: 
-            DATABASE_URL: postgres://postgres:postgres@postgres:5432/db
+            DATABASE_URL: postgres://postgres:postgres@postgres:5432/tasks
             NODE_ENV: development
-            PORT: 3000
+            
         ports:
             - "5000:5000"
 
