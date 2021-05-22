@@ -9,7 +9,7 @@ services:
         depends_on: 
             - postgres
         environment: 
-            DATABASE_URL: postgres://postgres:postgres@postgres:5432/tasks
+            DATABASE_URL: postgres://user:password@postgres:5432/tasks
             NODE_ENV: development
             
         ports:
