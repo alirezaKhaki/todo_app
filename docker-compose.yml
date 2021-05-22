@@ -9,16 +9,12 @@ services:
         depends_on: 
             - postgres
         environment: 
-            
             NODE_ENV: development
-            
         ports:
             - "5000:5000"
-
     postgres:
         image: postgres:10.4
         ports:
             - "35000:5432"
-       
          volumes:
             - ./data/postgres:/var/lib/postgresql/data

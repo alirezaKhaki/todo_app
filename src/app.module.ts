@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgres://postgres:postgres@localhost/tasks',
+      url: 'postgres://username:password@localhost/tasks',
       autoLoadEntities: true,
       synchronize: true
     }),
