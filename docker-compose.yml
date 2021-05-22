@@ -26,4 +26,4 @@ services:
         volumes: 
             - tasks:/data/db
 volumes: 
-    todo:
+    tasks:
