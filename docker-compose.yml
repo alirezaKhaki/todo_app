@@ -12,13 +12,13 @@ services:
             NODE_ENV: development
         ports:
             - "5000:5000"
-    postgres:
+        postgresql:
         image: postgres:10.4
         ports:
             - "35000:5432"
         environment: 
-            POSTGRES_USER: user
-            POSTGRES_PASSWORD: password
-            POSTGRES_DB: db
+            - POSTGRESQL_USERNAME=postgres
+            - POSTGRESQL_PASSWORD=postgres
+            - POSTGRESQL_DATABASE=tasks
         volumes:
             - ./data/postgres:/var/lib/postgresql/data
