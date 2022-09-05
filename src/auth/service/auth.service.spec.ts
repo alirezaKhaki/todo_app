@@ -9,8 +9,8 @@ describe('AuthService', () => {
     let authService: AuthService;
     const authCredentialsDto: AuthCredentialsDto = { username: "alireza", password: "password" };
     const mockUserRepository = {
-        signUp: ((data: AuthCredentialsDto) => Promise.resolve(data)),
-        validateUserPassword: ((data: AuthCredentialsDto) => {
+        signUp: jest.fn((data: AuthCredentialsDto) => Promise.resolve(data)),
+        validateUserPassword: jest.fn((data: AuthCredentialsDto) => {
             if (data.username == 'alireza')
                 return Promise.resolve(data.username);
             Promise.reject('Invalid credentials');
@@ -18,7 +18,7 @@ describe('AuthService', () => {
     };
 
     const mockJwtService = {
-        sign: (() => 'access')
+        sign: jest.fn(() => 'access')
     };
 
     beforeEach(async () => {
