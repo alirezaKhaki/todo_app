@@ -6,7 +6,7 @@ import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task } from './task.entity';
 import { TaskStatus } from './task-status.enum';
-import { User } from '../auth/user.entity';
+import { User } from '../auth/entity/user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
 
 @Controller('tasks')

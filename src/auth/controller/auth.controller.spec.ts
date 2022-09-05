@@ -2,9 +2,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SaveOptions, RemoveOptions } from 'typeorm';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth.dto';
-import { User } from './user.entity';
+import { AuthService } from '../service/auth.service';
+import { AuthCredentialsDto } from '../dto/auth.dto';
+import { User } from '../entity/user.entity';
 
 describe('AuthController', () => {
     let authController: AuthController;
